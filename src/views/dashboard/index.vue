@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="never">
     <el-row>
-      <el-col :span="18" class="flex gap-20px">
+      <el-col :span="18" class="flex gap-20px items-center">
         <el-avatar
           :size="80"
           :src="userStore.userInfo.avatar"
@@ -23,12 +23,64 @@
       </el-col>
     </el-row>
   </el-card>
+
+  <el-row :gutter="10" class="mt-20px">
+    <el-col :sm="12" :lg="6">
+      <el-card shadow="never">
+        <template #header>
+          <div class="flex-between">
+            <span class="color-[--el-text-color-secondary]">在线用户</span>
+            <i><el-tag type="success">-</el-tag></i>
+          </div>
+        </template>
+        <div class="flex-between items-center">
+          <div>
+            <div>1</div>
+            <div class="t14-mt10 color-[--el-text-color-secondary]">总用户数</div>
+          </div>
+          <div class="text-center">
+            <svg-icon icon-class="user" class="text-30px"></svg-icon>
+            <div class="t14-mt10">5</div>
+          </div>
+        </div>
+      </el-card>
+    </el-col>
+
+    <el-col :sm="12" :lg="6" v-for="item in visit">
+      <el-card shadow="never">
+        <template #header>
+          <div class="flex-between">
+            <span class="color-[--el-text-color-secondary]">{{ item.title }}</span>
+           <el-tag type="success">{{ item.granularity }}</el-tag>
+          </div>
+        </template>
+        <div class="flex-between items-center">
+          <div>
+            <span> {{ item.todayCount }}</span>
+            <span :class="[
+              'ml-10px',
+              'text-12px',
+              getGrowthRateClass(item.growthRate)
+              ]">
+              <el-icon  v-if="item.growthRate>0"><Top /></el-icon>
+              <el-icon  v-if="item.growthRate<0"><Bottom /></el-icon>
+              {{ formatGrowthRate(item.growthRate) }}
+            </span>
+            <div class="t14-mt10 color-[--el-text-color-secondary]">总{{ item.title }}</div>
+          </div>
+          <div class="text-center">
+            <svg-icon :icon-class="item.icon" class="text-30px"></svg-icon>
+            <div class="t14-mt10 text-[var(--el-text-color-secondary)]">{{ item.totalCount }}</div>
+          </div>
+        </div>
+      </el-card>
+    </el-col>
+  </el-row>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
 import { useUserStore } from "@/store/index";
-import SvgIcon from "@/components/SvgIcon/index.vue";
+import LogAPI from "@/api/log";
 
 let userStore = useUserStore();
 let staticData = ref([
@@ -48,6 +100,9 @@ let staticData = ref([
     number: "10",
   },
 ]);
+let visit = ref();
+
+// 业务
 let helloText = computed(() => {
   let hours = new Date().getHours();
   if (hours >= 6 && hours < 8) {
@@ -62,10 +117,56 @@ let helloText = computed(() => {
     return "偷偷向银河要了一把碎星，只等你闭上眼睛撒入你的梦中，晚安🌛！";
   }
 });
+let getVisit = async () => {
+  const list = await LogAPI.getVisitStats();
+  const transformList = list.map((item, index) => {
+    return {
+      title: item.title,
+      todayCount: item.todayCount,
+      totalCount: item.totalCount,
+      growthRate: item.growthRate,
+      granularity: "日",
+      icon: item.type,
+    };
+  });
+  visit.value = transformList;
+  console.log(visit.value);
+};
+
+let getGrowthRateClass = (growthRate:number):string =>{
+  if (growthRate > 0) {
+    return "color-[--el-color-danger]";
+  } else if (growthRate < 0) {
+    return "color-[--el-color-success]";
+  } else {
+    return "color-[--el-color-info]";
+  }
+}
+let formatGrowthRate = (growthRate:number):string=>{
+  if(growthRate == 0){
+    return '-'
+  }
+  const formattedRate = Math.abs(growthRate * 100)
+    .toFixed(2)
+    .replace(/\.?0+$/, "");
+  return formattedRate + "%";
+}
+
+onMounted(() => {
+  getVisit();
+});
 </script>
 
 <style scoped lang="scss">
 .mes {
   flex: 1;
+}
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+.t14-mt10 {
+  font-size: 14px;
+  margin-top: 10px;
 }
 </style>

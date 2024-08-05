@@ -3,6 +3,9 @@ import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import { resolve } from "path";
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite';
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 
 const pathSrc = resolve(__dirname, "src");
 export default defineConfig(({ mode }) => {
@@ -27,11 +30,23 @@ export default defineConfig(({ mode }) => {
           // 接口地址
           target: env.VITE_APP_API_URL,
           rewrite: (path) =>
-            path.replace(new RegExp("^" + env.VITE_APP_BASE_API), ""),
+          path.replace(new RegExp("^" + env.VITE_APP_BASE_API), ""),
         },
       },
     }, 
     plugins: [
+      AutoImport({ 
+        imports: [
+          'vue', 
+          'vue-router',
+        ], // 导入vue3相关api
+         dts: 'src/typings/auto-import.d.ts'
+      }),
+        Components({
+          dts: 'src/typings/auto-components.d.ts' , 
+          dirs: ['src/components'], 
+          resolvers: [AntDesignVueResolver()] // antd直接使用组件,无需在任何地方导入组件
+        }),
       vue(),
       UnoCSS(),
       createSvgIconsPlugin({

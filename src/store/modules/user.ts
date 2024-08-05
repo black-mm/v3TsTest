@@ -5,10 +5,12 @@ import UserAPI from "@/api/user";
 import MenuAPI from "@/api/menu";
 const Layout = () => import("@/layout/index.vue");
 
-export const useUserStore = defineStore( "user", () => {
+export const useUserStore = defineStore(
+  "user",
+  () => {
     let hasAddAsyncRoute = ref(false);
     let userInfo = ref();
-    let routeMenu:any[] = [];
+    let routeMenu: any[] = [];
 
     //登录
     function login(loginData: LoginData) {
@@ -27,25 +29,36 @@ export const useUserStore = defineStore( "user", () => {
     //请求用户信息
     async function getUserInfo() {
       let res = await UserAPI.getUserInfo();
-      userInfo.value = res
+      userInfo.value = res;
     }
     //获取权限路由
     async function generateRoutes() {
       if (routeMenu.length == 0) {
         let res = await MenuAPI.getRoutes();
-        routeMenu =  transformRoutes(res);
+        routeMenu = transformRoutes(res);
       }
       hasAddAsyncRoute.value = true;
       return routeMenu;
     }
-    return { hasAddAsyncRoute, userInfo,routeMenu,
-      login, getUserInfo, generateRoutes 
+    //重置token
+    function resetToken() {
+      localStorage.setItem("accessToken", "");
     }
+
+    return {
+      hasAddAsyncRoute,
+      userInfo,
+      routeMenu,
+      login,
+      getUserInfo,
+      generateRoutes,
+      resetToken,
+    };
   },
-  { 
+  {
     persist: {
-      paths: ['userInfo', 'routeMenu'],
-    }
+      paths: ["userInfo", "routeMenu"],
+    },
   }
 );
 

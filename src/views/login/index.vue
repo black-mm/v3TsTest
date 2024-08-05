@@ -39,12 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, onMounted, computed} from "vue";
-import {useRouter} from 'vue-router'
-
-import SvgIcon from "@/components/SvgIcon/index.vue";
 import type { FormInstance, FormRules } from 'element-plus'
-
 import { LoginData } from '@/api/auth'
 import AuthAPI from "@/api/auth";
 import UserAPI from '@/api/user'

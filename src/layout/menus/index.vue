@@ -18,14 +18,9 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, computed } from "vue";
-import { useRoute } from "vue-router";
-import SvgIcon from "@/components/SvgIcon/index.vue";
 import { useUserStore } from "@/store/index";
 import menuList from "./menuList.vue";
 import { useAppStore } from "@/store";
-import variables from "@/styles/variables.module.scss";
-import router from "@/router";
 
 let userStore = useUserStore();
 let appStore = useAppStore();
