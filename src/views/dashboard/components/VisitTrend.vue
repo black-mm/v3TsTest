@@ -2,7 +2,11 @@
   <el-card shadow="never">
     <template #header>
       <div class="card-header flex align-center justify-between">
-        <span>访问趋势</span>
+        <span>
+          <span>访问趋势</span>
+          <el-icon class="ml-10px" @click="download"><Download /></el-icon>
+        </span>
+
         <el-radio-group
           v-model="radioValue"
           size="small"
@@ -20,7 +24,7 @@
 <script setup lang="ts">
 import LogAPI from "@/api/log";
 import * as echarts from "echarts";
-import dateFormat from '@/utils/formatDate'
+import dateFormat from "@/utils/formatDate";
 
 let radioValue = ref("7");
 let myChart = null;
@@ -95,6 +99,20 @@ let initEcharts = () => {
       },
     ],
   });
+};
+let download = () => {
+  let picInfo = myChart.getDataURL({
+    type: "png",
+    pixelRatio: 1.5, //放大两倍下载，之后压缩到同等大小展示。解决生成图片在移动端模糊问题
+    backgroundColor: "#fff",
+  }); //获取到的是一串base64信息
+  const elink = document.createElement("a");
+  elink.download = "访问趋势";
+  elink.style.display = "none";
+  elink.href = picInfo;
+  document.body.appendChild(elink);
+  elink.click();
+  URL.revokeObjectURL(elink.href); // 释放URL 对象
 };
 onMounted(() => {
   getVisitTrend();
