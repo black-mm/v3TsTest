@@ -9,8 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps} from 'vue'
-import SvgIcon from "@/components/SvgIcon/index.vue";
 
 let props = defineProps({
     icon:{

@@ -3,11 +3,18 @@ import request from "@/utils/request";
 const LOG_BASE_URL = "/api/v1/logs";
 
 class LogAPI {
-  // 登录
+  //访问统计
   static getVisitStats() {
     return request<any, VisitStatsVO[]>({
-    url: `${LOG_BASE_URL}/visit-stats`,
+      url: `${LOG_BASE_URL}/visit-stats`,
       method: "get",
+    })
+  }
+  static getVisitTrend(params){
+    return request({
+      url:`${LOG_BASE_URL}/visit-trend`,
+      method:'get',
+      params:params
     })
   }
 }
