@@ -1,13 +1,14 @@
-
 .el-aside{
-  width: fit-content;
+  transition: .25s;
+}
+.layout-aside{
+  width: $sidebar-width;
+}
+.collapse-aside{
+  width:$sidebar-width-collapsed;
 }
 .el-menu{
   height: 100%;
+  width: 100% !important;
 }
-.el-menu-layout:not(.el-menu--collapse) {
-  width:$sidebar-width;
-}
-.el-menu--collapse{
-  width:$sidebar-width-collapsed;
-}
+

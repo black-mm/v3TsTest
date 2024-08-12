@@ -2,11 +2,7 @@
   <el-card shadow="never">
     <el-row>
       <el-col :span="18" class="flex gap-20px items-center">
-        <el-avatar
-          :size="80"
-          :src="userStore.userInfo.avatar"
-          class="min-w-80px min-h-80px"
-        />
+        <el-avatar :size="80" :src="userStore.userInfo.avatar" class="min-w-80px min-h-80px" />
         <div>
           <p>{{ helloText }}</p>
           <p class="text-14px text-slate-400">
@@ -60,10 +56,7 @@
             </template>
             <div class="flex justify-between">
               <el-skeleton-item style="width: 30%" />
-              <el-skeleton-item
-                variant="circle"
-                style="width: 30px; height: 30px"
-              />
+              <el-skeleton-item variant="circle" style="width: 30px; height: 30px" />
             </div>
             <div class="mt-5 flex justify-between">
               <el-skeleton-item variant="text" style="width: 50%" />
@@ -85,15 +78,17 @@
             <div class="flex-between items-center">
               <div>
                 <span> {{ item.todayCount }}</span>
-                <span
-                  :class="[
-                    'ml-10px',
-                    'text-12px',
-                    getGrowthRateClass(item.growthRate),
-                  ]"
-                >
-                  <el-icon v-if="item.growthRate > 0"><Top /></el-icon>
-                  <el-icon v-if="item.growthRate < 0"><Bottom /></el-icon>
+                <span :class="[
+                  'ml-10px',
+                  'text-12px',
+                  getGrowthRateClass(item.growthRate),
+                ]">
+                  <el-icon v-if="item.growthRate > 0">
+                    <Top />
+                  </el-icon>
+                  <el-icon v-if="item.growthRate < 0">
+                    <Bottom />
+                  </el-icon>
                   {{ formatGrowthRate(item.growthRate) }}
                 </span>
                 <div class="t14-mt10 color-[--el-text-color-secondary]">
@@ -115,7 +110,7 @@
 
   <el-row :gutter="10" class="mt-20px">
     <el-col :xs="24" :md="16">
-     <VisitTrend />
+      <VisitTrend />
     </el-col>
     <el-col :xs="24" :md="8">
       <el-card shadow="never">
@@ -132,13 +127,14 @@
       </el-card>
     </el-col>
   </el-row>
+
 </template>
 
 <script setup lang="ts">
 import { useUserStore } from "@/store/index";
 import LogAPI from "@/api/log";
 import VisitTrend from "./components/VisitTrend.vue";
-import { NoticeTypeEnum,getNoticeLabel } from "@/enums/NoticeTypeEnum";
+import { NoticeTypeEnum, getNoticeLabel } from "@/enums/NoticeTypeEnum";
 
 let userStore = useUserStore();
 let staticData = ref([
@@ -186,7 +182,6 @@ const notices = ref([
     type: NoticeTypeEnum.HOLIDAY_NOTICE,
     title: "端午节假期从 6 月 12 日至 6 月 14 日放假，共 3 天。",
   },
-
   {
     level: 2,
     type: NoticeTypeEnum.SECURITY_ALERT,
@@ -300,12 +295,15 @@ onMounted(() => {
 .mes {
   flex: 1;
 }
+
 .flex-between {
   display: flex;
   justify-content: space-between;
 }
+
 .t14-mt10 {
   font-size: 14px;
   margin-top: 10px;
 }
+
 </style>
