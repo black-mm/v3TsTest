@@ -32,7 +32,6 @@ let classObj = computed(()=>{
 .contain-right {
   height: 100vh;
   .el-header {
-    background-color: #fff;
     padding: 0px;
   }
   .el-main {

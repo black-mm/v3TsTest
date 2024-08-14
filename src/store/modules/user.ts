@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import AuthAPI, { LoginData } from "@/api/auth";
 import UserAPI from "@/api/user";
 import MenuAPI from "@/api/menu";
-const Layout = () => import("@/layout/index.vue");
+import router  from '@/router/index'
 
+const Layout = () => import("@/layout/index.vue");
 export const useUserStore = defineStore(
   "user",
   () => {
@@ -44,7 +45,11 @@ export const useUserStore = defineStore(
     function resetToken() {
       localStorage.setItem("accessToken", "");
     }
-
+    //登出
+    function exit(){
+      localStorage.clear()
+      router.push('/login')
+    }
     return {
       hasAddAsyncRoute,
       userInfo,
@@ -53,6 +58,7 @@ export const useUserStore = defineStore(
       getUserInfo,
       generateRoutes,
       resetToken,
+      exit
     };
   },
   {

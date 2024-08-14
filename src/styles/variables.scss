@@ -1,15 +1,13 @@
 /** 全局SCSS变量 */
-
-:root {
+:root{
   --menu-background: #304156;
   --menu-text: #bfcbd9;
   --menu-active-text: var(--el-menu-active-color);
   --menu-hover: #263445;
   --sidebar-logo-background: #2d3748;
 }
-
 /** 暗黑主题 */
-html.dark {
+html.dark{
   --menu-background: var(--el-bg-color-overlay);
   --menu-text: #fff;
   --menu-active-text: var(--el-menu-active-color);
@@ -25,5 +23,4 @@ $sidebar-logo-background: var(--sidebar-logo-background); // 侧边栏 Logo 背�
 
 $sidebar-width: 210px; // 侧边栏宽度
 $sidebar-width-collapsed: 54px; // 侧边栏收缩宽度
-$navbar-height: 50px; // 导航栏高度
-$tags-view-height: 34px; // TagsView 高度
+

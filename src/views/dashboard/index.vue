@@ -113,7 +113,7 @@
       <VisitTrend />
     </el-col>
     <el-col :xs="24" :md="8">
-      <el-card shadow="never">
+      <el-card shadow="never" body-class="notify-card">
         <template #header>
           <div class="flex-between align-center">
             <span>通知公告</span>
@@ -127,7 +127,6 @@
       </el-card>
     </el-col>
   </el-row>
-
 </template>
 
 <script setup lang="ts">
@@ -306,4 +305,8 @@ onMounted(() => {
   margin-top: 10px;
 }
 
+:deep(.notify-card) {
+  height: 440px !important;
+  overflow-y: auto !important;
+}
 </style>
