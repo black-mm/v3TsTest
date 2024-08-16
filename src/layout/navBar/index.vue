@@ -2,8 +2,12 @@
     <div class="box">
         <!-- 折叠按钮 -->
         <div class="common-flex h-extend">
-            <el-icon v-if="sideBarStatus" @click="iconClick"> <Fold /></el-icon>
-            <el-icon v-else @click="iconClick"><Expand /></el-icon>
+            <el-icon v-if="sideBarStatus" @click="iconClick">
+                <Fold />
+            </el-icon>
+            <el-icon v-else @click="iconClick">
+                <Expand />
+            </el-icon>
             <span>首页</span>
         </div>
 
@@ -21,10 +25,12 @@
 
         <!-- 设置 -->
         <div class="common-flex ml-10px">
-            <el-icon @click="settingDrawer = true"><Setting /></el-icon>
+            <el-icon @click="settingStore.openSetting()">
+                <Setting />
+            </el-icon>
         </div>
-        
-        <setting :settingDrawer="settingDrawer"  @drawClose="drawClose"/>
+
+        <setting v-if="settingStore.settingsVisible" />
     </div>
 </template>
 
@@ -32,12 +38,12 @@
 import { computed } from 'vue'
 import { useAppStore, useUserStore } from '@/store'
 import setting from '../setting/index.vue'
+import { useSettingStore } from '@/store'
 
-let settingDrawer = ref(false)
-
+let settingStore = useSettingStore()
 let AppStore = useAppStore()
 let userStore = useUserStore()
- 
+
 let sideBarStatus = computed(() => {
     return AppStore.sidebarStatus
 })
@@ -48,10 +54,6 @@ let iconClick = () => {
 let exit = () => {
     userStore.exit()
 }
-let drawClose = ()=>{
-    settingDrawer.value = false
-}
-
 </script>
 
 <style scoped lang="scss">
@@ -91,5 +93,4 @@ let drawClose = ()=>{
     color: #606266;
     cursor: pointer;
 }
-
 </style>

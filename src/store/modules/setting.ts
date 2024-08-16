@@ -8,13 +8,14 @@ const toggleDark = useToggle(isDark)
 export const useSettingStore = defineStore("setting",()=>{
     //设置弹窗
     let settingsVisible = ref(false)
-
-    function settingChange(){
+    //打开设置弹窗
+    function openSetting(){
         settingsVisible.value = true
     }
+    //切换主题
     function themeChange(){
         toggleDark()
     }
-    return {settingsVisible,settingChange,themeChange}
+    return {settingsVisible,openSetting,themeChange}
 },
 {persist:true})
