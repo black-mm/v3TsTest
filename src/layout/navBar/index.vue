@@ -23,43 +23,24 @@
         <div class="common-flex ml-10px">
             <el-icon @click="settingDrawer = true"><Setting /></el-icon>
         </div>
-        <el-drawer v-model="settingDrawer" title="项目配置" direction="rtl">
-                <el-divider content-position="center">主题设置</el-divider>
-                <div class="common-flex justify-center">
-                    <el-icon @click="themeChange"><Sunny /></el-icon>
-                    <el-switch v-model="themeDefault" @change="toggleDark()"/>
-                    <el-icon @click="themeChange"> <Moon /></el-icon>
-                </div>
-                <el-divider content-position="center">界面设置</el-divider>
-                <el-divider content-position="center">导航设置</el-divider>
-        </el-drawer>
+        
+        <setting :settingDrawer="settingDrawer"  @drawClose="drawClose"/>
     </div>
 </template>
 
 <script setup lang='ts'>
 import { computed } from 'vue'
 import { useAppStore, useUserStore } from '@/store'
-import { useDark, useToggle } from '@vueuse/core'
+import setting from '../setting/index.vue'
+
+let settingDrawer = ref(false)
 
 let AppStore = useAppStore()
 let userStore = useUserStore()
-let settingDrawer = ref(false)
-
-let themeDefault = ref(false)   //主题 false默认模式，true为暗黑模式
-
-
-
-const isDark = useDark()
-const toggleDark = useToggle(isDark)
  
 let sideBarStatus = computed(() => {
     return AppStore.sidebarStatus
 })
-
-let themeChange = ()=>{
-    themeDefault.value = !themeDefault.value
-    toggleDark()
-}
 
 let iconClick = () => {
     AppStore.sideBarChange()
@@ -67,12 +48,9 @@ let iconClick = () => {
 let exit = () => {
     userStore.exit()
 }
-onMounted(()=>{
-    let scheme = localStorage.getItem('vueuse-color-scheme')
-    if(scheme =='dark'){
-        themeDefault.value = true
-    }
-})
+let drawClose = ()=>{
+    settingDrawer.value = false
+}
 
 </script>
 
