@@ -15,7 +15,7 @@
         </div>
         <el-divider content-position="center">导航设置</el-divider>
     </el-drawer>
-    
+
 </template>
 
 <script setup lang='ts'>
@@ -36,7 +36,7 @@ const predefineColors = ref([
     "rgb(255, 120, 0)",
     "hsva(120, 40, 94)",
 ])
-let fixHeader = ref(true)
+let fixHeader = ref(settingStore.headerFix)
 
 // 业务代码
 let themeChange = () => {
@@ -46,7 +46,7 @@ let changeThemeColor = () => {
     settingStore.changeThemeColor(color.value)
 }
 let fixHeaderChange = ()=>{
-    
+    settingStore.headerFixChange()
 }
 onMounted(() => {
     let scheme = localStorage.getItem('vueuse-color-scheme')
