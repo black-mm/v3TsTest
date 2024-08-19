@@ -5,9 +5,13 @@
             <el-switch v-model="themeDefault" @change="themeChange" active-icon="Moon" inactive-icon="Sunny" />
         </div>
         <el-divider content-position="center">界面设置</el-divider>
-        <div class="common-flex justify-between">
+        <div class="common-flex justify-between mb-10px">
             <span>主题颜色</span>
             <el-color-picker v-model="color" :predefine="predefineColors" @change="changeThemeColor" />
+        </div>
+        <div class="common-flex justify-between mb-10px">
+            <span>固定 Header</span>
+            <el-switch v-model="fixHeader" @change="fixHeaderChange"/>
         </div>
         <el-divider content-position="center">导航设置</el-divider>
     </el-drawer>
@@ -31,12 +35,17 @@ const predefineColors = ref([
     "rgb(255, 120, 0)",
     "hsva(120, 40, 94)",
 ])
+let fixHeader = ref(true)
 
+// 业务代码
 let themeChange = () => {
     settingStore.themeChange()
 }
 let changeThemeColor = () => {
     settingStore.changeThemeColor(color.value)
+}
+let fixHeaderChange = ()=>{
+    
 }
 onMounted(() => {
     let scheme = localStorage.getItem('vueuse-color-scheme')
