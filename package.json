@@ -24,6 +24,7 @@
   "devDependencies": {
     "@iconify-json/ep": "^1.1.16",
     "@vitejs/plugin-vue": "^5.0.4",
+    "color": "^4.2.3",
     "typescript": "^5.2.2",
     "unocss": "^0.60.3",
     "unplugin-auto-import": "^0.18.2",
