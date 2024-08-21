@@ -11,7 +11,11 @@
         </div>
         <div class="common-flex justify-between mb-10px">
             <span>固定 Header</span>
-            <el-switch v-model="fixHeader" @change="fixHeaderChange"/>
+            <el-switch v-model="headerFix" @change="fixHeaderChange"/>
+        </div>
+        <div class="common-flex justify-between mb-10px">
+            <span>固定 Tags-view</span>
+            <el-switch v-model="tagsViewfix" @change="fixTagsViewChange"/>
         </div>
         <el-divider content-position="center">导航设置</el-divider>
     </el-drawer>
@@ -36,8 +40,8 @@ const predefineColors = ref([
     "rgb(255, 120, 0)",
     "hsva(120, 40, 94)",
 ])
-let fixHeader = ref(settingStore.headerFix)
-
+let headerFix = ref(settingStore.headerFix)
+let tagsViewfix = ref(settingStore.tagsViewfix)
 // 业务代码
 let themeChange = () => {
     settingStore.themeChange()
@@ -47,6 +51,9 @@ let changeThemeColor = () => {
 }
 let fixHeaderChange = ()=>{
     settingStore.headerFixChange()
+}
+let fixTagsViewChange = ()=>{
+    settingStore.tagsViewfixChange()
 }
 onMounted(() => {
     let scheme = localStorage.getItem('vueuse-color-scheme')

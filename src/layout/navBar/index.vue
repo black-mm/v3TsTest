@@ -31,6 +31,8 @@
         </div>
 
         <setting v-if="settingStore.settingsVisible" />
+
+        <tagsView v-if="settingStore.tagsViewfix" />
     </div>
 </template>
 
@@ -39,6 +41,7 @@ import { computed } from 'vue'
 import { useAppStore, useUserStore } from '@/store'
 import setting from '../setting/index.vue'
 import { useSettingStore } from '@/store'
+import tagsView from '../tagsView/index.vue'
 
 let settingStore = useSettingStore()
 let AppStore = useAppStore()
@@ -59,10 +62,11 @@ let exit = () => {
 <style scoped lang="scss">
 .box {
     width: 100%;
-    height: 50px;
+    // height: 50px;
     padding: 0 20px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     font-size: 14px;
     color: #606266;
 }
@@ -81,6 +85,7 @@ let exit = () => {
     align-items: center;
     gap: 10px;
     cursor: pointer;
+    height: 50px;
 }
 
 .h-extend {
@@ -93,4 +98,5 @@ let exit = () => {
     color: #606266;
     cursor: pointer;
 }
+
 </style>

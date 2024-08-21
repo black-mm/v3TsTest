@@ -39,7 +39,6 @@ onMounted(()=>{
   flex: 1;
 
   .header {
-    height: 84px;
     background-color: #fff;
   }
 

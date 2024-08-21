@@ -13,6 +13,9 @@ export const useSettingStore = defineStore("setting",()=>{
     let themeColor = ref((JSON.parse(localStorage.getItem('setting')||'{}').themeColor) || '#409EFF' )
     //固定header
     let headerFix = ref(true)
+    //固定tags-view
+    let tagsViewfix = ref(true)
+
     watch(themeColor,(newThemeColor,oldThemeColor)=>{
         if(newThemeColor!=oldThemeColor){
             document.documentElement.style.setProperty('--el-color-primary', newThemeColor);
@@ -43,14 +46,20 @@ export const useSettingStore = defineStore("setting",()=>{
     function headerFixChange(){
         headerFix.value = !headerFix.value
     }
+    //切换是否固定tags-view
+    function tagsViewfixChange(){
+        tagsViewfix.value = !tagsViewfix.value
+    }
     return {
         settingsVisible,
         themeColor,
         headerFix,
+        tagsViewfix,
         openSetting,
         themeChange,
         changeThemeColor,
-        headerFixChange
+        headerFixChange,
+        tagsViewfixChange
     }
 },
 {persist:true})
