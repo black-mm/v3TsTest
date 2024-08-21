@@ -5,21 +5,24 @@
             <el-switch v-model="themeDefault" @change="themeChange" active-icon="Moon" inactive-icon="Sunny" />
         </div>
         <el-divider content-position="center">界面设置</el-divider>
-        <div class="common-flex justify-between mb-10px">
+        <div class="common-flex between">
             <span>主题颜色</span>
             <el-color-picker v-model="color" :predefine="predefineColors" @change="changeThemeColor" />
         </div>
-        <div class="common-flex justify-between mb-10px">
+        <div class="common-flex between">
             <span>固定 Header</span>
             <el-switch v-model="headerFix" @change="fixHeaderChange"/>
         </div>
-        <div class="common-flex justify-between mb-10px">
+        <div class="common-flex between">
             <span>固定 Tags-view</span>
             <el-switch v-model="tagsViewfix" @change="fixTagsViewChange"/>
         </div>
+        <div class="common-flex between">
+            <span>侧边栏Logo</span>
+            <el-switch v-model="siderbarLogo" @change="siderbarLogoChange"/>
+        </div>
         <el-divider content-position="center">导航设置</el-divider>
     </el-drawer>
-
 </template>
 
 <script setup lang='ts'>
@@ -42,6 +45,7 @@ const predefineColors = ref([
 ])
 let headerFix = ref(settingStore.headerFix)
 let tagsViewfix = ref(settingStore.tagsViewfix)
+let siderbarLogo = ref(settingStore.siderbarLogo)
 // 业务代码
 let themeChange = () => {
     settingStore.themeChange()
@@ -54,6 +58,9 @@ let fixHeaderChange = ()=>{
 }
 let fixTagsViewChange = ()=>{
     settingStore.tagsViewfixChange()
+}
+let siderbarLogoChange = ()=>{
+    settingStore.siderbarLogoChange()
 }
 onMounted(() => {
     let scheme = localStorage.getItem('vueuse-color-scheme')
@@ -70,5 +77,9 @@ onMounted(() => {
     align-items: center;
     gap: 10px;
     cursor: pointer;
+}
+.between{
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 </style>

@@ -15,6 +15,8 @@ export const useSettingStore = defineStore("setting",()=>{
     let headerFix = ref(true)
     //固定tags-view
     let tagsViewfix = ref(true)
+    //侧边栏Logo
+    let siderbarLogo = ref(true)
 
     watch(themeColor,(newThemeColor,oldThemeColor)=>{
         if(newThemeColor!=oldThemeColor){
@@ -50,16 +52,21 @@ export const useSettingStore = defineStore("setting",()=>{
     function tagsViewfixChange(){
         tagsViewfix.value = !tagsViewfix.value
     }
+    function siderbarLogoChange(){
+        siderbarLogo.value = !siderbarLogo.value
+    }
     return {
         settingsVisible,
         themeColor,
         headerFix,
         tagsViewfix,
+        siderbarLogo,
         openSetting,
         themeChange,
         changeThemeColor,
         headerFixChange,
-        tagsViewfixChange
+        tagsViewfixChange,
+        siderbarLogoChange
     }
 },
 {persist:true})

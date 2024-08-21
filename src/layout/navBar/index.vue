@@ -94,8 +94,7 @@ let exit = () => {
 }
 
 .exit {
-    padding: 10px 20px;
-    color: #606266;
+    padding: 10px 20px;   color: #606266;
     cursor: pointer;
 }
 
