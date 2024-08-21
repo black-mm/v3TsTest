@@ -21,6 +21,10 @@
             <span>侧边栏Logo</span>
             <el-switch v-model="siderbarLogo" @change="siderbarLogoChange"/>
         </div>
+        <div class="common-flex between">
+            <span>开启水印</span>
+            <el-switch v-model="watermark" @change="watermarkChange"/>
+        </div>
         <el-divider content-position="center">导航设置</el-divider>
     </el-drawer>
 </template>
@@ -46,6 +50,7 @@ const predefineColors = ref([
 let headerFix = ref(settingStore.headerFix)
 let tagsViewfix = ref(settingStore.tagsViewfix)
 let siderbarLogo = ref(settingStore.siderbarLogo)
+let watermark = ref(settingStore.watermark)
 // 业务代码
 let themeChange = () => {
     settingStore.themeChange()
@@ -61,6 +66,9 @@ let fixTagsViewChange = ()=>{
 }
 let siderbarLogoChange = ()=>{
     settingStore.siderbarLogoChange()
+}
+let watermarkChange = ()=>{
+    settingStore.watermarkChange()
 }
 onMounted(() => {
     let scheme = localStorage.getItem('vueuse-color-scheme')

@@ -17,6 +17,8 @@ export const useSettingStore = defineStore("setting",()=>{
     let tagsViewfix = ref(true)
     //侧边栏Logo
     let siderbarLogo = ref(true)
+    //水印
+    let watermark = ref(false)
 
     watch(themeColor,(newThemeColor,oldThemeColor)=>{
         if(newThemeColor!=oldThemeColor){
@@ -55,18 +57,23 @@ export const useSettingStore = defineStore("setting",()=>{
     function siderbarLogoChange(){
         siderbarLogo.value = !siderbarLogo.value
     }
+    function watermarkChange(){
+        watermark.value = ! watermark.value
+    }
     return {
         settingsVisible,
         themeColor,
         headerFix,
         tagsViewfix,
         siderbarLogo,
+        watermark,
         openSetting,
         themeChange,
         changeThemeColor,
         headerFixChange,
         tagsViewfixChange,
-        siderbarLogoChange
+        siderbarLogoChange,
+        watermarkChange
     }
 },
 {persist:true})

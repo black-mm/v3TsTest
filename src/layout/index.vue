@@ -1,4 +1,6 @@
 <template>
+  <el-watermark :font="font" content="vue3-element-admin" class="watermark" v-if="settingStore.watermark">
+  </el-watermark>
   <el-container>
     <el-aside :class="classObj">
       <menus />
@@ -12,23 +14,32 @@
       </el-main>
     </div>
   </el-container>
+
+  <!-- 左侧布局 -->
+  <!-- 顶部布局 -->
+  <!-- 混合布局 -->
 </template>
 
 <script setup lang="ts">
 import menus from "./menus/index.vue";
 import navBar from "./navBar/index.vue";
-import { useAppStore,useSettingStore } from "@/store";
+import { useAppStore, useSettingStore } from "@/store";
 
 let appStore = useAppStore();
 let settingStore = useSettingStore()
+
+const font = reactive({
+  color: 'rgba(0, 0, 0, .15)',
+})
+
 let classObj = computed(() => {
   return {
     'layout-aside': appStore.sidebarStatus,
     'collapse-aside': !appStore.sidebarStatus,
   }
 })
-onMounted(()=>{
-  
+onMounted(() => {
+
 })
 </script>
 
@@ -62,5 +73,9 @@ onMounted(()=>{
   .el-aside {
     width: 0px;
   }
+}
+
+.watermark {
+  position: initial !important;
 }
 </style>
